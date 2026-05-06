@@ -1,39 +1,21 @@
 <!DOCTYPE html>
 <html lang="en-us">
   <head>
-    <script>
-  function applyCustomTabName() {
-    const savedTabName = localStorage.getItem("customTabName");
+    <!-- REQUIRED for Unity -->
+    <base href="https://cdn.jsdelivr.net/gh/web-ports/hollow-knight-silksong@master/">
 
-    if (savedTabName) {
-      document.title = savedTabName;
-    }
-  }
+    <meta charset="utf-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>Unity Web Player | Hollow Knight SilkSong</title>
 
-  applyCustomTabName();
-  window.addEventListener("load", applyCustomTabName);
-  setTimeout(applyCustomTabName, 1000);
-  setTimeout(applyCustomTabName, 3000);
-</script>
-  <!-- Required for the Unity/CDN files -->
-  <base href="https://cdn.jsdelivr.net/gh/web-ports/hollow-knight-silksong@master/">
+    <link rel="shortcut icon" href="/games/hollow-knight-silksong-master/silksong-icon.ico">
+    <link rel="icon" type="image/x-icon" href="/games/hollow-knight-silksong-master/silksong-icon.ico">
 
-  <meta charset="utf-8">
-  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-  <title>Unity Web Player | Hollow Knight SilkSong</title>
+    <link rel="stylesheet" href="TemplateData/style.css">
+  </head>
 
-  <!-- Custom local favicon -->
-  <link rel="icon" type="image/x-icon" href="/games/hollow-knight-silksong-master/silksong-icon.ico">
-  <link rel="shortcut icon" type="image/x-icon" href="/games/hollow-knight-silksong-master/silksong-icon.ico">
-
-  <!-- Unity styles -->
-  <link rel="stylesheet" href="TemplateData/style.css">
-</head>
   <body>
-    <div
-      id="loading-text"
-      style="color: white; font-size: 48px; font-family: cursive; text-align: center; margin-top: 20px;"
-    >
+    <div id="loading-text" style="color: white; font-size: 48px; font-family: cursive; text-align: center; margin-top: 20px;">
       LOADING...
     </div>
 
@@ -53,8 +35,12 @@
     <script src="jszip.js"></script>
 
     <script>
+      alert("port by R Spedman");
+
       const loadingText = document.querySelector("#loading-text");
+
       const CACHE_NAME = "hksilksongcache-v2";
+      const SILK_PART_CACHE = "hksilksong-part-cache-v1";
 
       const originalFetch = window.fetch;
 
@@ -63,9 +49,12 @@
         let cleanPath = url.split("/").pop();
 
         const cache = await caches.open(CACHE_NAME);
-        const cachedResponse = await cache.match(cleanPath);
 
-        if (cachedResponse) return cachedResponse;
+        const cachedResponse = await cache.match(cleanPath);
+        if (cachedResponse) {
+          return cachedResponse;
+        }
+
         return originalFetch(resource, options);
       };
 
@@ -79,8 +68,13 @@
         const cacheNames = await caches.keys();
 
         await Promise.all(
-          cacheNames.map((name) => {
-            if (name !== CACHE_NAME && name.includes("hksilksong")) {
+          cacheNames.map(name => {
+            if (
+              name !== CACHE_NAME &&
+              name !== SILK_PART_CACHE &&
+              name.includes("hksilksong")
+            ) {
+              console.log("Deleting old cache:", name);
               return caches.delete(name);
             }
           })
@@ -88,32 +82,73 @@
       }
 
       async function unzipAndStore(zipBlob) {
+        if (!zipBlob) {
+          throw new Error("ZIP is missing");
+        }
+
         loadingText.textContent = "EXTRACTING ASSETS...";
 
         const zip = await JSZip.loadAsync(zipBlob);
-        const files = Object.values(zip.files).filter((f) => !f.dir);
+        const files = Object.values(zip.files).filter(f => !f.dir);
+        const total = files.length;
 
         const cache = await caches.open(CACHE_NAME);
 
         let processed = 0;
+        const batchSize = 10;
 
-        for (let file of files) {
-          const blob = await file.async("blob");
-          await cache.put(file.name, new Response(blob));
+        for (let i = 0; i < files.length; i += batchSize) {
+          const batch = files.slice(i, i + batchSize);
 
-          processed++;
-          loadingText.textContent =
-            `EXTRACTING ASSETS... (${processed}/${files.length})`;
+          await Promise.all(
+            batch.map(async (file) => {
+              try {
+                const blob = await file.async("blob");
+                await cache.put(file.name, new Response(blob));
+              } catch (e) {
+                console.error("Failed:", file.name, e);
+              }
+
+              processed++;
+              loadingText.textContent =
+                `EXTRACTING ASSETS... (${processed}/${total})`;
+            })
+          );
+
+          await new Promise(r => setTimeout(r, 0));
         }
 
         await cache.put("CACHE_COMPLETE", new Response("ok"));
+
+        console.log("Cache complete");
       }
 
+      let loadedBytes = 0;
+
       async function fetchWithProgress(url) {
-        const response = await originalFetch(url);
+        const absoluteUrl = new URL(url, document.baseURI).href;
+
+        const partCache = await caches.open(SILK_PART_CACHE);
+        const cachedPart = await partCache.match(absoluteUrl);
+
+        if (cachedPart) {
+          const buffer = await cachedPart.arrayBuffer();
+
+          loadedBytes += buffer.byteLength;
+
+          const mbDone = (loadedBytes / (1024 * 1024)).toFixed(2);
+          const mbTotal = "1986.64";
+
+          loadingText.textContent =
+            `LOADING CACHED ASSETS... (${mbDone} MB / ${mbTotal} MB)`;
+
+          return buffer;
+        }
+
+        const response = await originalFetch(absoluteUrl);
 
         if (!response.ok) {
-          throw new Error("Failed to fetch: " + url);
+          throw new Error("Failed to fetch: " + absoluteUrl);
         }
 
         const reader = response.body.getReader();
@@ -126,13 +161,17 @@
           if (done) break;
 
           received += value.length;
+          loadedBytes += value.length;
           chunks.push(value);
 
-          let mb = (received / (1024 * 1024)).toFixed(2);
-          loadingText.textContent = `DOWNLOADING ASSETS... (${mb} MB)`;
+          const mbDone = (loadedBytes / (1024 * 1024)).toFixed(2);
+          const mbTotal = "1986.64";
+
+          loadingText.textContent =
+            `DOWNLOADING ASSETS... (${mbDone} MB / ${mbTotal} MB)`;
         }
 
-        let fullBuffer = new Uint8Array(received);
+        const fullBuffer = new Uint8Array(received);
         let offset = 0;
 
         for (let chunk of chunks) {
@@ -140,12 +179,16 @@
           offset += chunk.length;
         }
 
+        await partCache.put(absoluteUrl, new Response(fullBuffer));
+
         return fullBuffer.buffer;
       }
 
       async function mergeFiles(parts) {
+        console.log("Downloading parts:", parts.length);
+
         const buffers = await Promise.all(
-          parts.map((part) => fetchWithProgress(part))
+          parts.map(part => fetchWithProgress(part))
         );
 
         return new Blob(buffers);
@@ -184,12 +227,45 @@
           const canvas = document.querySelector("#unity-canvas");
           const loadingBar = document.querySelector("#unity-loading-bar");
           const progressBarFull = document.querySelector("#unity-progress-bar-full");
+          const warningBanner = document.querySelector("#unity-warning");
+
+          function unityShowBanner(msg, type) {
+            function update() {
+              warningBanner.style.display =
+                warningBanner.children.length ? "block" : "none";
+            }
+
+            const div = document.createElement("div");
+            div.innerHTML = msg;
+            warningBanner.appendChild(div);
+
+            if (type === "error") {
+              div.style = "background:red;padding:10px;";
+            } else {
+              if (type === "warning") {
+                div.style = "background:yellow;padding:10px;";
+              }
+
+              setTimeout(() => {
+                warningBanner.removeChild(div);
+                update();
+              }, 5000);
+            }
+
+            update();
+          }
+
+          const buildUrl = "Build";
 
           const config = {
-            dataUrl: "Build/w-pt.data.unityweb",
-            frameworkUrl: "Build/w-pt.framework.js.unityweb",
-            codeUrl: "Build/w-pt.wasm.unityweb",
-            streamingAssetsUrl: "StreamingAssets"
+            dataUrl: buildUrl + "/w-pt.data.unityweb",
+            frameworkUrl: buildUrl + "/w-pt.framework.js.unityweb",
+            codeUrl: buildUrl + "/w-pt.wasm.unityweb",
+            streamingAssetsUrl: "StreamingAssets",
+            companyName: "EDUrocks Group, Truffled, GN-Math",
+            productName: "Hollow Knight SilkSong",
+            productVersion: "1.0",
+            showBanner: unityShowBanner
           };
 
           loadingBar.style.display = "block";
@@ -200,11 +276,13 @@
 
           script.onload = () => {
             createUnityInstance(canvas, config, (progress) => {
-              progressBarFull.style.width = progress * 100 + "%";
-            }).then(() => {
-              loadingBar.remove();
-              loadingText.remove();
-            });
+              progressBarFull.style.width = (progress * 100) + "%";
+            })
+              .then(() => {
+                loadingBar.remove();
+                loadingText.remove();
+              })
+              .catch(alert);
           };
 
           document.body.appendChild(script);
