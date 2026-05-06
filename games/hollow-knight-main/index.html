@@ -36,6 +36,7 @@
 
     let lb=0,hd=false,tm_id;
     const tm='912.81',fh=[],ml=90;
+    const HK_CACHE_NAME="hollow-knight-main-cache-v1";
 
     fc.width=180;
     fc.height=50;
@@ -103,7 +104,27 @@
     }
 
     async function fwp(u){
-      const r=await fetch(u);
+      const absoluteUrl=new URL(u,document.baseURI).href;
+      const cache=await caches.open(HK_CACHE_NAME);
+      const cached=await cache.match(absoluteUrl);
+
+      if(cached){
+        lt.textContent="LOADING FROM CACHE...";
+        return await cached.blob();
+      }
+
+      const r=await fetch(absoluteUrl);
+
+      if(!r.ok){
+        throw new Error("Failed to download "+absoluteUrl);
+      }
+
+      if(!r.body){
+        const blob=await r.blob();
+        await cache.put(absoluteUrl,new Response(blob));
+        return blob;
+      }
+
       const rd=r.body.getReader();
       const ch=[];
 
@@ -113,16 +134,19 @@
 
         lb+=value.length;
         ch.push(value);
+
         lt.textContent=`${(lb/1048576).toFixed(2)} MB / ${tm} MB`;
       }
 
-      return URL.createObjectURL(new Blob(ch));
+      const blob=new Blob(ch);
+      await cache.put(absoluteUrl,new Response(blob));
+
+      return blob;
     }
 
     async function mf(p){
-      const b=await Promise.all(p.map(fwp));
-      const bl=await Promise.all(b.map(u=>fetch(u).then(r=>r.blob())));
-      return URL.createObjectURL(new Blob(bl));
+      const blobs=await Promise.all(p.map(fwp));
+      return URL.createObjectURL(new Blob(blobs));
     }
 
     function gp(f,s,e){
@@ -130,32 +154,41 @@
     }
 
     (async()=>{
-      const [du,wu]=await Promise.all([
-        mf(gp("Build/hktruffled.data",1,45)),
-        mf(gp("Build/hktruffled.wasm",1,2))
-      ]);
+      try{
+        const [du,wu]=await Promise.all([
+          mf(gp("Build/hktruffled.data",1,45)),
+          mf(gp("Build/hktruffled.wasm",1,2))
+        ]);
 
-      const sc=document.createElement("script");
-      sc.src="Build/hktruffled.loader.js";
+        const sc=document.createElement("script");
+        sc.src="Build/hktruffled.loader.js";
 
-      sc.onload=()=>{
-        createUnityInstance(cv,{
-          dataUrl:du,
-          frameworkUrl:"Build/hktruffled.framework.js",
-          codeUrl:wu,
-          streamingAssetsUrl:"StreamingAssets",
-          companyName:"Team Cherry",
-          productName:"Hollow Knight",
-          productVersion:"1.0"
-        }).then(()=>{
-          lt.remove();
-          asb();
-          fg.style.display='block';
-          uf();
-        }).catch(alert);
-      };
+        sc.onload=()=>{
+          createUnityInstance(cv,{
+            dataUrl:du,
+            frameworkUrl:"Build/hktruffled.framework.js",
+            codeUrl:wu,
+            streamingAssetsUrl:"StreamingAssets",
+            companyName:"Team Cherry",
+            productName:"Hollow Knight",
+            productVersion:"1.0"
+          }).then(()=>{
+            lt.remove();
+            asb();
+            fg.style.display='block';
+            uf();
+          }).catch(alert);
+        };
 
-      document.body.appendChild(sc);
+        sc.onerror=()=>{
+          alert("Failed to load Hollow Knight loader.");
+        };
+
+        document.body.appendChild(sc);
+      }catch(e){
+        console.error(e);
+        lt.textContent="ERROR: "+e.message;
+      }
     })();
 
     function asb(){
