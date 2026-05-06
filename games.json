@@ -1,0 +1,35 @@
+[
+  {
+    "id": "slope",
+    "title": "Slope",
+    "iframe": "./games/slope/index.html",
+    "image": "./games/slope/cover.png"
+  },
+  {
+    "id": "suika",
+    "title": "Suika Game",
+    "iframe": "./games/suika-game-main/index.html",
+    "image": "./games/suika-game-main/cover.png"
+  },
+  {
+    "id": "hollow-knight",
+    "title": "Hollow Knight",
+    "iframe": "./games/hollow-knight-main/index.html",
+    "image": "./games/hollow-knight-main/cover.png"
+  },
+
+  {
+    "id": "eaglercraft",
+    "title": "Eaglercraft",
+    "image": "./games/eaglercraft/cover.png",
+    "iframe": "./games/eaglercraft/index.html"
+  },
+
+  {
+  "id": "silksong",
+  "title": "Silksong",
+  "image": "./games/hollow-knight-silksong-master/cover.png",
+  "iframe": "./games/hollow-knight-silksong-master/index.html"
+  }
+
+]

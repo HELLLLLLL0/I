@@ -1,0 +1,14 @@
+.DS_Store
+venv/
+__pycache__/
+node_modules/
+
+# Do not upload huge Silksong files. They are loaded from CDN/cache instead.
+games/hollow-knight-silksong-master/Build/*.unityweb
+games/hollow-knight-silksong-master/StreamingAssets/aa/WebGL.zip
+games/hollow-knight-silksong-master/StreamingAssets/aa/WebGL.zip.part*
+games/hollow-knight-silksong-master/StreamingAssets/aa/WebGL/
+games/hollow-knight-silksong-master/StreamingAssets/VideoClip/
+
+# Do not upload huge Hollow Knight chunk files
+games/hollow-knight-main/Build/*.part*
