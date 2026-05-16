@@ -37,6 +37,15 @@
   "title": "Karlson",
   "image": "./games/karlson/cover.png",
   "iframe": "./games/karlson/index.html"
-  }
+  },
+
+  {
+  "id": "escaperoad",
+  "title": "Escape Road",
+  "image": "./games/escaperoad/cover.png",
+  "iframe": "./games/escaperoad/index.html"
+ }
+
+
 
 ] 
