@@ -30,6 +30,13 @@
   "title": "Silksong",
   "image": "./games/hollow-knight-silksong-master/cover.png",
   "iframe": "./games/hollow-knight-silksong-master/index.html"
+  },
+  
+  {
+  "id": "karlson",
+  "title": "Karlson",
+  "image": "./games/karlson/cover.png",
+  "iframe": "./games/karlson/index.html"
   }
 
-]
+] 
