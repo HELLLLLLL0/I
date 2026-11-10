@@ -1,0 +1,88 @@
+[
+  {
+    "path": "games/escaperoad/TemplateData/data.unityweb",
+    "url": "https://raw.githubusercontent.com/bubbls/escape-road/45b2d69c626dc365753f6922d2c48c4075683ef5/drive.google.com/escape%20road/TemplateData/data.unityweb",
+    "sha256": "eda7b6c725accaa121da9403c14c319e5231b2361c24755a3fac1ee8325040db"
+  },
+  {
+    "path": "games/escaperoad/TemplateData/framework.js.unityweb",
+    "url": "https://raw.githubusercontent.com/bubbls/escape-road/45b2d69c626dc365753f6922d2c48c4075683ef5/drive.google.com/escape%20road/TemplateData/framework.js.unityweb",
+    "sha256": "e7ada455e0cb1ec694690291399bc290dc2e1f29f8181e6a3f681b4f8cefb02a"
+  },
+  {
+    "path": "games/escaperoad/TemplateData/loader.js",
+    "url": "https://raw.githubusercontent.com/bubbls/escape-road/45b2d69c626dc365753f6922d2c48c4075683ef5/drive.google.com/escape%20road/TemplateData/loader.js",
+    "sha256": "cbfc419f5e3ba3e9ec533ae66a3924abc217841b91ec5a80a05fa44e0bd97e08"
+  },
+  {
+    "path": "games/escaperoad/TemplateData/style.css",
+    "url": "https://raw.githubusercontent.com/bubbls/escape-road/45b2d69c626dc365753f6922d2c48c4075683ef5/drive.google.com/escape%20road/TemplateData/style.css",
+    "sha256": "92a356884b738882e05743593568e71d641f4d19f1199fa25f812b6c57815229"
+  },
+  {
+    "path": "games/escaperoad/TemplateData/wasm.unityweb",
+    "url": "https://raw.githubusercontent.com/bubbls/escape-road/45b2d69c626dc365753f6922d2c48c4075683ef5/drive.google.com/escape%20road/TemplateData/wasm.unityweb",
+    "sha256": "d0a7bdc7614e70c7cf42a107ee695b6503b90774d17143ce77c37aca94efb4b3"
+  },
+  {
+    "path": "games/escaperoad/az_logo.png",
+    "url": "https://raw.githubusercontent.com/bubbls/escape-road/45b2d69c626dc365753f6922d2c48c4075683ef5/drive.google.com/escape%20road/az_logo.png",
+    "sha256": "24c76b898d94bbd0de9385a829d033847887fa30472f23df064c65b3352e9d1b"
+  },
+  {
+    "path": "games/escaperoad/car-icon.png",
+    "url": "https://raw.githubusercontent.com/bubbls/escape-road/45b2d69c626dc365753f6922d2c48c4075683ef5/drive.google.com/escape%20road/car-icon.png",
+    "sha256": "c1d1a514637f4f3e9cf5ff5f6424f7f9d00789cf9b97b771f55b7e20e4c7d5e7"
+  },
+  {
+    "path": "games/escaperoad/loading.png",
+    "url": "https://raw.githubusercontent.com/bubbls/escape-road/45b2d69c626dc365753f6922d2c48c4075683ef5/drive.google.com/escape%20road/loading.png",
+    "sha256": "97b02d66f4b957f85ee4c0701a58720fb306554be8b03527af34ddc24264de91"
+  },
+  {
+    "path": "games/karlson/Build/UnityLoader.js",
+    "url": "https://raw.githubusercontent.com/giorgirick2-gif/game-webports-onawebsite/b3042ae7a56b2ede39ea4b4371b1d0ab3af8828a/karlson/Build/UnityLoader.js",
+    "sha256": "910dc7fcf2240f96083b4d72abb7c3f21f3d50444e6662ceba173c20bb1260c0"
+  },
+  {
+    "path": "games/karlson/Build/tyj.data.unityweb",
+    "url": "https://raw.githubusercontent.com/giorgirick2-gif/game-webports-onawebsite/b3042ae7a56b2ede39ea4b4371b1d0ab3af8828a/karlson/Build/tyj.data.unityweb",
+    "sha256": "1154757dd72554a3918afeae492eebba6a9318067371cbd069aa060a66f569be"
+  },
+  {
+    "path": "games/karlson/Build/tyj.wasm.framework.js",
+    "url": "https://raw.githubusercontent.com/giorgirick2-gif/game-webports-onawebsite/b3042ae7a56b2ede39ea4b4371b1d0ab3af8828a/karlson/Build/tyj.wasm.framework.js",
+    "sha256": "a5155ecb15e5074f76e2370994c620b63eede574bbb06b913e148f5cbdd8f311"
+  },
+  {
+    "path": "games/karlson/Build/tyj.wasm.code.unityweb",
+    "url": "https://raw.githubusercontent.com/giorgirick2-gif/game-webports-onawebsite/b3042ae7a56b2ede39ea4b4371b1d0ab3af8828a/karlson/Build/tyj.wasm.code.unityweb.zip",
+    "sha256": "5f64e8c7407cb8f013ae4a9edb5086f5bd48cd7419177565221a137c5a2bea88",
+    "transform": "unzip",
+    "outputSha256": "dc270c7452b4480aa59a1cfdbb21ae9374ce2b420b4122df1ae534b9d81c5d25"
+  },
+  {
+    "path": "games/hollow-knight-silksong-master/Build/w-pt.data.unityweb",
+    "url": "https://raw.githubusercontent.com/web-ports/hollow-knight-silksong/bcbe014765f2f6ca4b1d82ac25755a0299a600ab/Build/w-pt.data.unityweb",
+    "sha256": "be3af4fa5ac87a32a61f331b67265eb4fb5fe3ec6630210e86a8c31a1d585783"
+  },
+  {
+    "path": "games/hollow-knight-silksong-master/Build/w-pt.framework.js.unityweb",
+    "url": "https://raw.githubusercontent.com/web-ports/hollow-knight-silksong/bcbe014765f2f6ca4b1d82ac25755a0299a600ab/Build/w-pt.framework.js.unityweb",
+    "sha256": "03bf4bc6b7064f08154bcb9d25fd7e9ae395fd6a2dade1c651d04c29c7bedf14"
+  },
+  {
+    "path": "games/hollow-knight-silksong-master/Build/w-pt.wasm.unityweb",
+    "url": "https://raw.githubusercontent.com/web-ports/hollow-knight-silksong/bcbe014765f2f6ca4b1d82ac25755a0299a600ab/Build/w-pt.wasm.unityweb",
+    "sha256": "dec1592cb26386d1c2fb13c14983f2eb9ef4846f13a1f3bc574946a048be4c38"
+  },
+  {
+    "path": "games/eaglercraft/game.epw",
+    "url": "https://raw.githubusercontent.com/HELLLLLLL0/I/d152d2c42c38376c973a777e000c5e3a887241d1/games/eaglercraft/index.html",
+    "sha256": "e0d026c11910f6981e0412585192fae8c7ff402daa977ad0bee288697fb9332d",
+    "transform": "eaglercraft",
+    "outputSha256": "063506e1326e95b6ecf28ccb038cbd1465ee94670cc2310ecaa1e4a2857930fc",
+    "extraPath": "games/eaglercraft/wispcraft.js",
+    "extraSha256": "97868658930c75b6e37d7f485d9ee0a6bc9f094b4ad7853638cf761c509a7399"
+  }
+]

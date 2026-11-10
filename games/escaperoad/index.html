@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Escape Road</title>
+  <link rel="icon" href="cover.png">
+  <style>
+    * { box-sizing: border-box; }
+    html, body { width: 100%; height: 100%; margin: 0; overflow: hidden; background: #000; color: #fff; font-family: Arial, sans-serif; }
+    #unity-container, #unity-canvas { width: 100%; height: 100%; display: block; }
+    #loading-cover { position: fixed; inset: 0; display: flex; align-items: center; justify-content: center; background: #000; }
+    #loading-cover[hidden] { display: none; }
+    .loading-scene { width: min(100vw, 177.78vh); aspect-ratio: 16 / 9; position: relative; background: #000 url('loading.png') center / contain no-repeat; }
+    .loading-info { position: absolute; left: 10%; right: 10%; bottom: 7%; text-align: center; }
+    progress { display: block; width: 45%; min-width: 180px; height: 22px; margin: 0 auto 12px; accent-color: #fad234; }
+    #status { margin: 0; text-shadow: 0 2px 3px #000; overflow-wrap: anywhere; }
+    #retry { margin-top: 14px; padding: 10px 20px; font: inherit; border: 0; border-radius: 5px; background: #fad234; color: #111; cursor: pointer; }
+  </style>
+</head>
+<body>
+  <main id="unity-container"><canvas id="unity-canvas" tabindex="0" aria-label="Escape Road game"></canvas></main>
+  <div id="loading-cover">
+    <div class="loading-scene"><div class="loading-info">
+      <progress id="progress" max="1" value="0" aria-label="Loading game"></progress>
+      <p id="status" role="status">Loading Escape Road…</p>
+      <button id="retry" hidden>Retry</button>
+    </div></div>
+  </div>
+  <script src="loader.js"></script>
+</body>
+</html>

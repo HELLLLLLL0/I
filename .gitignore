@@ -3,8 +3,7 @@ venv/
 __pycache__/
 node_modules/
 
-# Do not upload huge Silksong files. They are loaded from CDN/cache instead.
-games/hollow-knight-silksong-master/Build/*.unityweb
+# Large Silksong archive parts are fetched directly and cached by the loader.
 games/hollow-knight-silksong-master/StreamingAssets/aa/WebGL.zip
 games/hollow-knight-silksong-master/StreamingAssets/aa/WebGL.zip.part*
 games/hollow-knight-silksong-master/StreamingAssets/aa/WebGL/
@@ -12,3 +11,28 @@ games/hollow-knight-silksong-master/StreamingAssets/VideoClip/
 
 # Do not upload huge Hollow Knight chunk files
 games/hollow-knight-main/Build/*.part*
+
+# Generated preview and redundant source archives
+dist/
+games/karlson/Build/*.zip
+
+.openai/
+
+# Reproducible binary/vendor build inputs (scripts/assets.json)
+games/escaperoad/TemplateData/data.unityweb
+games/escaperoad/TemplateData/framework.js.unityweb
+games/escaperoad/TemplateData/loader.js
+games/escaperoad/TemplateData/style.css
+games/escaperoad/TemplateData/wasm.unityweb
+games/escaperoad/az_logo.png
+games/escaperoad/car-icon.png
+games/escaperoad/loading.png
+games/karlson/Build/UnityLoader.js
+games/karlson/Build/tyj.data.unityweb
+games/karlson/Build/tyj.wasm.framework.js
+games/karlson/Build/tyj.wasm.code.unityweb
+games/hollow-knight-silksong-master/Build/w-pt.data.unityweb
+games/hollow-knight-silksong-master/Build/w-pt.framework.js.unityweb
+games/hollow-knight-silksong-master/Build/w-pt.wasm.unityweb
+games/eaglercraft/game.epw
+games/eaglercraft/wispcraft.js
