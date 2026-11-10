@@ -1,7 +1,6 @@
-\<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en-us">
 <head>
-  <base href="https://cdn.jsdelivr.net/gh/aukak/hollow-knight@latest/">
   <meta charset="utf-8">
   <title>Unity WebGL Player | Hollow Knight</title>
 
@@ -103,49 +102,30 @@
       setTimeout(()=>mw.style.display="none",5000);
     }
 
+    const ASSET_BASE='https://raw.githubusercontent.com/9m113konkors/Scholarium/da932940451e8342ce35fee65bb42f4479ca5a59/';
+    const cachePromise = (async()=>{try{return await caches.open('hollow-knight-parts-da932940-v1');}catch(_){return null;}})();
     async function fwp(u){
-      const absoluteUrl=new URL(u,document.baseURI).href;
-      const cache=await caches.open(HK_CACHE_NAME);
-      const cached=await cache.match(absoluteUrl);
-
-      if(cached){
-        lt.textContent="LOADING FROM CACHE...";
-        return await cached.blob();
+      const url=ASSET_BASE+u, cache=await cachePromise;
+      const expected=u.endsWith('data.part45')?8756670:u.endsWith('wasm.part2')?9390603:20866662;
+      if(cache){try{const hit=await cache.match(url);if(hit){const blob=await hit.blob();if(blob.size===expected){lb+=blob.size;lt.textContent=`Loading cached assets… ${(lb/1048576).toFixed(1)} MB`;return blob;}await cache.delete(url);}}catch(_){}}
+      let lastError;
+      for(let attempt=0;attempt<3;attempt++){
+        try{
+          const r=await fetch(url,{signal:AbortSignal.timeout(120000)});
+          if(!r.ok)throw new Error(`Download failed (${r.status}): ${u}`);
+          const blob=await r.blob();
+          if(blob.size!==expected)throw new Error('Incomplete game file: '+u);
+          if(cache){try{await cache.put(url,new Response(blob));}catch(_){console.warn('Cache unavailable; continuing without saving this part.');}}
+          lb+=blob.size;lt.textContent=`Loading… ${(lb/1048576).toFixed(1)} MB / ${tm} MB`;
+          return blob;
+        }catch(error){lastError=error;if(attempt<2)await new Promise(r=>setTimeout(r,500*(attempt+1)));}
       }
-
-      const r=await fetch(absoluteUrl);
-
-      if(!r.ok){
-        throw new Error("Failed to download "+absoluteUrl);
-      }
-
-      if(!r.body){
-        const blob=await r.blob();
-        await cache.put(absoluteUrl,new Response(blob));
-        return blob;
-      }
-
-      const rd=r.body.getReader();
-      const ch=[];
-
-      while(true){
-        const {done,value}=await rd.read();
-        if(done)break;
-
-        lb+=value.length;
-        ch.push(value);
-
-        lt.textContent=`${(lb/1048576).toFixed(2)} MB / ${tm} MB`;
-      }
-
-      const blob=new Blob(ch);
-      await cache.put(absoluteUrl,new Response(blob));
-
-      return blob;
+      throw lastError;
     }
-
-    async function mf(p){
-      const blobs=await Promise.all(p.map(fwp));
+    async function mf(paths){
+      const blobs=new Array(paths.length);let next=0;
+      async function worker(){while(next<paths.length){const i=next++;blobs[i]=await fwp(paths[i]);}}
+      await Promise.all([worker(),worker()]);
       return URL.createObjectURL(new Blob(blobs));
     }
 
@@ -188,6 +168,7 @@
       }catch(e){
         console.error(e);
         lt.textContent="ERROR: "+e.message;
+        const retry=document.createElement('button');retry.textContent='Retry loading';retry.onclick=()=>location.reload();lt.appendChild(retry);
       }
     })();
 
