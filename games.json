@@ -17,35 +17,34 @@
     "iframe": "./games/hollow-knight-main/index.html",
     "image": "./games/hollow-knight-main/cover.png"
   },
-
   {
     "id": "eaglercraft",
     "title": "Eaglercraft",
     "image": "./games/eaglercraft/cover.png",
     "iframe": "./games/eaglercraft/index.html"
   },
-
   {
-  "id": "silksong",
-  "title": "Silksong",
-  "image": "./games/hollow-knight-silksong-master/cover.png",
-  "iframe": "./games/hollow-knight-silksong-master/index.html"
+    "id": "silksong",
+    "title": "Silksong",
+    "image": "./games/hollow-knight-silksong-master/cover.png",
+    "iframe": "./games/hollow-knight-silksong-master/index.html"
   },
-  
   {
-  "id": "karlson",
-  "title": "Karlson",
-  "image": "./games/karlson/cover.png",
-  "iframe": "./games/karlson/index.html"
+    "id": "karlson",
+    "title": "Karlson",
+    "image": "./games/karlson/cover.png",
+    "iframe": "./games/karlson/index.html"
   },
-
   {
-  "id": "escaperoad",
-  "title": "Escape Road",
-  "image": "./games/escaperoad/cover.png",
-  "iframe": "./games/escaperoad/index.html"
- }
-
-
-
-] 
+    "id": "escaperoad",
+    "title": "Escape Road",
+    "image": "./games/escaperoad/cover.png",
+    "iframe": "./games/escaperoad/index.html"
+  },
+  {
+    "id": "bitlife",
+    "title": "BitLife",
+    "image": "./games/bitlife/cover.png",
+    "iframe": "./games/bitlife/index.html"
+  }
+]

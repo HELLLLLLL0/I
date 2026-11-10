@@ -89,5 +89,35 @@
     "path": "games/escaperoad/random.js",
     "url": "https://raw.githubusercontent.com/bubbls/escape-road/45b2d69c626dc365753f6922d2c48c4075683ef5/drive.google.com/escape%20road/random.js",
     "sha256": "dfa4db90c8c13730d9847239c1dd95c6297a04a831ba3fb82ae540f6ce3bc7e5"
+  },
+  {
+    "path": "games/bitlife/Build/BitLife.json",
+    "url": "https://raw.githubusercontent.com/a456pur/seraph/ae2fcc6d6a9cd051654fcc0519080db1f79cf2a7/games/bitlife/Build/BitLife.json",
+    "sha256": "49e3c3966c1783ff822df7721aea10fe8e02f8513032a6af57c14085eb43d61e"
+  },
+  {
+    "path": "games/bitlife/Build/UnityLoader.js",
+    "url": "https://raw.githubusercontent.com/a456pur/seraph/ae2fcc6d6a9cd051654fcc0519080db1f79cf2a7/games/bitlife/Build/UnityLoader.js",
+    "sha256": "74050127bc6edf8815064a26b77edfc42a985c950f3c1349d134c6f66391f9e7"
+  },
+  {
+    "path": "games/bitlife/TemplateData/UnityProgress.js",
+    "url": "https://raw.githubusercontent.com/a456pur/seraph/ae2fcc6d6a9cd051654fcc0519080db1f79cf2a7/games/bitlife/TemplateData/UnityProgress.js",
+    "sha256": "a0be32586f66e305eebf2a10f5821f1eb392dfee09b6c3063649461124aaf4fb"
+  },
+  {
+    "path": "games/bitlife/Build/BitLife.data.unityweb",
+    "url": "https://raw.githubusercontent.com/a456pur/seraph/ae2fcc6d6a9cd051654fcc0519080db1f79cf2a7/games/bitlife/Build/BitLife.data.unityweb",
+    "sha256": "dc43e0a93d4ea37edaa8ff304d1e3b8f1558e4df47a0acaa0633de2989aa7fe9"
+  },
+  {
+    "path": "games/bitlife/Build/BitLife.wasm.code.unityweb",
+    "url": "https://raw.githubusercontent.com/a456pur/seraph/ae2fcc6d6a9cd051654fcc0519080db1f79cf2a7/games/bitlife/Build/BitLife.wasm.code.unityweb",
+    "sha256": "d032e3018ce078bb177629e84ae7d09177b24676baa2e27c8a9b7c11b020f440"
+  },
+  {
+    "path": "games/bitlife/Build/BitLife.wasm.framework.unityweb",
+    "url": "https://raw.githubusercontent.com/a456pur/seraph/ae2fcc6d6a9cd051654fcc0519080db1f79cf2a7/games/bitlife/Build/BitLife.wasm.framework.unityweb",
+    "sha256": "85e4735e60fc9477941f65483c8b263300da00f543de0df16f1b04c02df597cd"
   }
 ]

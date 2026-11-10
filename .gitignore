@@ -36,3 +36,7 @@ games/hollow-knight-silksong-master/Build/w-pt.framework.js.unityweb
 games/hollow-knight-silksong-master/Build/w-pt.wasm.unityweb
 games/eaglercraft/game.epw
 games/eaglercraft/wispcraft.js
+
+# BitLife build inputs
+games/bitlife/Build/
+games/bitlife/TemplateData/
