@@ -84,5 +84,10 @@
     "outputSha256": "063506e1326e95b6ecf28ccb038cbd1465ee94670cc2310ecaa1e4a2857930fc",
     "extraPath": "games/eaglercraft/wispcraft.js",
     "extraSha256": "97868658930c75b6e37d7f485d9ee0a6bc9f094b4ad7853638cf761c509a7399"
+  },
+  {
+    "path": "games/escaperoad/random.js",
+    "url": "https://raw.githubusercontent.com/bubbls/escape-road/45b2d69c626dc365753f6922d2c48c4075683ef5/drive.google.com/escape%20road/random.js",
+    "sha256": "dfa4db90c8c13730d9847239c1dd95c6297a04a831ba3fb82ae540f6ce3bc7e5"
   }
 ]
